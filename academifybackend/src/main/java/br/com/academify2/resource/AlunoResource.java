@@ -45,4 +45,9 @@ public class AlunoResource {
         return aluno;
     }
 
+    @GetMapping("/getTotal")
+    public int getTotal() {
+        return alunoRepository.findAll().size();
+    }
+
 }
