@@ -8,11 +8,9 @@
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-
-    <title>Academify - Listar Alunos</title>
+    <title>Academify - Inserir Aluno</title>
 </head>
 <body>
-
 <!-- Menu topo -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="../index.html">Academify</a>
@@ -32,28 +30,23 @@
     </div>
 </nav>
 
-<!-- Conteúdo principal -->
 <div class="container">
-    <h1>Listar Alunos</h1>
+    <h2>Inserir Aluno</h2>
 
-    <hr>
-    <a class="btn btn-primary" href="inserirAluno.html" role="button">Novo</a>
-    </hr>
+    <form id="form-inserir-usuario" action="listarAlunos.html">
 
-    <table id="tbListarAlunos" class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody id="tbListarAlunosBody"></tbody>
-    </table>
+        <div class="form-group">
+            <label for="input-nome">Nome</label>
+            <input type="text" class="form-control" id="input-nome" placeholder="Nome">
+        </div>
+        <hr>
+        <a class="btn btn-secondary" href="listarAlunos.html" role="button">Voltar</a>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+
+    </form>
 
 </div>
 
-
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -65,37 +58,42 @@
         src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+
+    //Processar formulário
+    $('#form-inserir-usuario').submit(function (event) {
+
+        event.preventDefault();
+
+        //Criar formData
+        var formData = {'nome': $('#input-nome').val()};
 
         $.ajax({
-            url: 'http://localhost:8080/api/aluno/listar',
-            type: 'get',
+            headers : {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'POST',
+            url: 'http://localhost:8080/api/aluno/incluir',
+            data: JSON.stringify(formData),
             dataType: 'json',
-            success: function (result) {
-                var html = '';
-                $.each(result, function (i, data) {
-                    html += `<tr><td>` + data.nome + `</td>`;
-                    html += `<td><a href="editarAluno.html?id=` + data.id + `"><i class="bi bi-pencil-fill"></i></a>`;
-                    html += ` <a href="visualizarAluno.html?id=` + data.id + `"><i class="bi bi-search"></i></a>`;
-                    html += ` <a href="#" onclick="removerAluno(` + data.id + `)"><i class="bi bi-archive-fill"></i></a></td></tr>`;
-
-                    $("#tbListarAlunosBody").html(html);
-                });
+            encode: true,
+            success: function (data) {
+                location.href = 'listarALunos.html';
+            },
+            error: function (data) {
+                console.log("Erro: isso eu que estou digitando");
+                console.log(data);
             }
-        })
+        });
+
+
+
 
     });
-</script>
 
-<script>
-    function removerAluno(id_usuario) {
-        alert("Este é o id do usuário: " + id_usuario);
-    }
 </script>
 
 </body>
