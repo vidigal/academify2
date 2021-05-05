@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Bootstrap CSS -->
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-    <title>Academify - Inserir Aluno</title>
+
+
+    <title>Academify - Editar Aluno</title>
 </head>
 <body>
 <!-- Menu topo -->
@@ -29,12 +29,17 @@
         </ul>
     </div>
 </nav>
-
+<!-- Conteúdo principal -->
 <div class="container">
-    <h2>Inserir Aluno</h2>
+    <h2>Editar Alunos</h2>
 
-    <form id="form-inserir-usuario" action="listarAlunos.html">
+    <div class="alert alert-danger collapse" role="alert" id="div-alert-message">
 
+        <a class="close" onclick="esconderAlert()">×</a>
+
+    </div>
+
+    <form id="form-editar-usuario" action="listarAlunos.html">
         <div class="form-group">
             <label for="input-nome">Nome</label>
             <input type="text" class="form-control" id="input-nome" placeholder="Nome">
@@ -46,6 +51,7 @@
     </form>
 
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -61,33 +67,62 @@
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 <script>
-    //Processar formulário
-    $('#form-inserir-usuario').submit(function (event) {
+    function GetURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++)
+        {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam)
+            {
+                return sParameterName[1];
+            }
+        }
+    }
 
+    var id_aluno = GetURLParameter("id");
+
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost:8080/api/aluno/get/' + id_aluno,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $("#input-nome").val(data.nome);
+            }
+        })
+
+    });
+
+    $('#form-editar-usuario').submit(function (event) {
         event.preventDefault();
 
-        //Criar formData
-        var formData = {'nome': $('#input-nome').val()};
+        var formData = {
+            'id': id_aluno,
+            'nome': $('#input-nome').val()
+        };
 
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            type: 'POST',
-            url: 'http://localhost:8080/api/aluno/incluir',
+            type: 'PUT',
+            url: 'http://localhost:8080/api/aluno/editar',
             data: JSON.stringify(formData),
             dataType: 'json',
             encode: true,
             success: function (data) {
-                location.href = 'listarAlunos.html';
+                location.href = "listarAlunos.html";
             },
             error: function (data) {
-                console.log("Erro: isso eu que estou digitando");
-                console.log(data);
+                alert("Ocorreu um erro ao editar o aluno");
             }
-        });
+        })
+
     });
+
+
 </script>
 
 </body>
