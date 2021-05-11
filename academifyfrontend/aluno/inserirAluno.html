@@ -33,6 +33,10 @@
 <div class="container">
     <h2>Inserir Aluno</h2>
 
+    <div class="alert alert-danger collapse" role="alert" id="div-alert-message">
+        <a class="close" onclick="esconderAlert()">×</a>
+    </div>
+
     <form id="form-inserir-usuario" action="listarAlunos.html">
 
         <div class="form-group">
@@ -83,11 +87,18 @@
                 location.href = 'listarAlunos.html';
             },
             error: function (data) {
-                console.log("Erro: isso eu que estou digitando");
-                console.log(data);
+                $('#div-alert-message').prepend(data.responseText);
+                $('#div-alert-message').fadeIn();
             }
         });
     });
+</script>
+
+<script>
+    function esconderAlert() {
+        $('#div-alert-message').html("<a class='close' onclick='esconderAlert()'>×</a>");
+        $('#div-alert-message').hide();
+    }
 </script>
 
 </body>
