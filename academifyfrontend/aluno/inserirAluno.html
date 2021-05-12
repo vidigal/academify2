@@ -63,43 +63,8 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<script>
-    //Processar formulário
-    $('#form-inserir-usuario').submit(function (event) {
-
-        event.preventDefault();
-
-        //Criar formData
-        var formData = {'nome': $('#input-nome').val()};
-
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            type: 'POST',
-            url: 'http://localhost:8080/api/aluno/incluir',
-            data: JSON.stringify(formData),
-            dataType: 'json',
-            encode: true,
-            success: function (data) {
-                location.href = 'listarAlunos.html';
-            },
-            error: function (data) {
-                $('#div-alert-message').prepend(data.responseText);
-                $('#div-alert-message').fadeIn();
-            }
-        });
-    });
-</script>
-
-<script>
-    function esconderAlert() {
-        $('#div-alert-message').html("<a class='close' onclick='esconderAlert()'>×</a>");
-        $('#div-alert-message').hide();
-    }
-</script>
+<script src="../resources/academify.js"></script>
+<script src="../resources/aluno-inserir.js"></script>
 
 </body>
 </html>

@@ -43,8 +43,13 @@ public class AlunoResource {
 
     @PutMapping("/editar")
     public ResponseEntity<Aluno> editar(@RequestBody Aluno aluno) {
-        aluno = alunoRepository.save(aluno);
-        return new ResponseEntity<Aluno>(aluno, HttpStatus.OK);
+        AlunoController alunoController = new AlunoController();
+        if (alunoController.validarAluno(aluno)) {
+            aluno = alunoRepository.save(aluno);
+            return new ResponseEntity(aluno, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Nome do aluno é inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/remover")

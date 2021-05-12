@@ -34,9 +34,7 @@
     <h2>Editar Alunos</h2>
 
     <div class="alert alert-danger collapse" role="alert" id="div-alert-message">
-
         <a class="close" onclick="esconderAlert()">×</a>
-
     </div>
 
     <form id="form-editar-usuario" action="listarAlunos.html">
@@ -65,65 +63,8 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<script>
-    function GetURLParameter(sParam) {
-        var sPageURL = window.location.search.substring(1);
-        var sURLVariables = sPageURL.split('&');
-        for (var i = 0; i < sURLVariables.length; i++)
-        {
-            var sParameterName = sURLVariables[i].split('=');
-            if (sParameterName[0] == sParam)
-            {
-                return sParameterName[1];
-            }
-        }
-    }
-
-    var id_aluno = GetURLParameter("id");
-
-    $(document).ready(function () {
-        $.ajax({
-            url: 'http://localhost:8080/api/aluno/get/' + id_aluno,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $("#input-nome").val(data.nome);
-            }
-        })
-
-    });
-
-    $('#form-editar-usuario').submit(function (event) {
-        event.preventDefault();
-
-        var formData = {
-            'id': id_aluno,
-            'nome': $('#input-nome').val()
-        };
-
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            type: 'PUT',
-            url: 'http://localhost:8080/api/aluno/editar',
-            data: JSON.stringify(formData),
-            dataType: 'json',
-            encode: true,
-            success: function (data) {
-                location.href = "listarAlunos.html";
-            },
-            error: function (data) {
-                alert("Ocorreu um erro ao editar o aluno");
-            }
-        })
-
-    });
-
-
-</script>
+<script src="../resources/academify.js"></script>
+<script src="../resources/aluno-editar.js"></script>
 
 </body>
 </html>
