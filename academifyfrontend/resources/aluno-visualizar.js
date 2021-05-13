@@ -1,11 +1,17 @@
 var id_aluno = GetURLParameter("id");
 
 $(document).ready(function () {
+
+    if ($.cookie('jwt_token') == null || $.cookie('jwt_token') == undefined) {
+        alert("Usuário não autenticado");
+        location.href = "/academifyfrontend/login.html";
+    }
+
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NTE0MzQsImlhdCI6MTYyMDkxNTQzNH0.duFRUJ07-5QO8Uc4jK6HF1ROmeuAjw50E15cAEyedpY'
+            'Authorization': 'Beaver ' + $.cookie('jwt_token'),
         },
         url: 'http://localhost:8080/api/aluno/get/' + id_aluno,
         type: 'GET',
@@ -29,7 +35,7 @@ $('#form-editar-usuario').submit(function (event) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NDk2OTksImlhdCI6MTYyMDkxMzY5OX0.zFQylPievrht6DgHTTPc4QxCPW66PfRq3UPU1FvLJiw'
+            'Authorization': 'Beaver ' + $.cookie('jwt_token'),
         },
         type: 'PUT',
         url: 'http://localhost:8080/api/aluno/editar',
