@@ -77,6 +77,10 @@
 <script>
     $(document).ready(function () {
         $.ajax({
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NTE0MzQsImlhdCI6MTYyMDkxNTQzNH0.duFRUJ07-5QO8Uc4jK6HF1ROmeuAjw50E15cAEyedpY'
+            },
             url: 'http://localhost:8080/api/aluno/getTotal',
             type: 'get',
             dataType: 'json',

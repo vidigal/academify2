@@ -1,6 +1,10 @@
 $(document).ready(function () {
 
     $.ajax({
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NDk2OTksImlhdCI6MTYyMDkxMzY5OX0.zFQylPievrht6DgHTTPc4QxCPW66PfRq3UPU1FvLJiw'
+        },
         url: 'http://localhost:8080/api/aluno/listar',
         type: 'get',
         dataType: 'json',
@@ -30,7 +34,8 @@ function removerAluno(id_aluno) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NTE0MzQsImlhdCI6MTYyMDkxNTQzNH0.duFRUJ07-5QO8Uc4jK6HF1ROmeuAjw50E15cAEyedpY'
             },
             type: 'POST',
             url: 'http://localhost:8080/api/aluno/remover',
