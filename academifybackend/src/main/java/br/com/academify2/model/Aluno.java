@@ -11,6 +11,9 @@ public class Aluno {
     private long id;
     private String nome;
 
+    @Column(length = 10)
+    private String matricula;
+
     public long getId() {
         return id;
     }
@@ -25,5 +28,13 @@ public class Aluno {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 }

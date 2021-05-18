@@ -9,13 +9,14 @@ $(document).ready(function () {
     $.ajax({
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Beaver eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aWN0b3IiLCJleHAiOjE2MjA5NTE0MzQsImlhdCI6MTYyMDkxNTQzNH0.duFRUJ07-5QO8Uc4jK6HF1ROmeuAjw50E15cAEyedpY'
+            'Authorization': 'Beaver '+ $.cookie('jwt_token'),
         },
         url: 'http://localhost:8080/api/aluno/get/' + id_aluno,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             $("#input-nome").val(data.nome);
+            $("#input-matricula").val(data.matricula);
         }
     })
 
@@ -26,6 +27,7 @@ $('#form-editar-usuario').submit(function (event) {
 
     var formData = {
         'id': id_aluno,
+        'matricula': $('#input-matricula').val(),
         'nome': $('#input-nome').val()
     };
 

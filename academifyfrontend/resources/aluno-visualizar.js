@@ -17,6 +17,7 @@ $(document).ready(function () {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            $("#input-matricula").val(data.matricula);
             $("#input-nome").val(data.nome);
         }
     })
