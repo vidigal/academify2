@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     if ($.cookie('jwt_token') == null || $.cookie('jwt_token') == undefined) {
         alert("Usuário não autenticado");
         location.href = "/academifyfrontend/login.html";
