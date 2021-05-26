@@ -14,7 +14,6 @@ public class Aluno {
     private long id;
     private String nome;
 
-    // @DateTimeFormat(pattern = "dd/MM/yyyy") se quiser só a data
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date dataHoraCadastro;
 
