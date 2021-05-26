@@ -10,13 +10,15 @@ $('#form-inserir-usuario').submit(function (event) {
 
     event.preventDefault();
 
+    nascimento = new Date($('#input-nascimento').val());
+
     //Criar formData
     var formData = {
         'matricula': $('#input-matricula').val(),
-        'nome': $('#input-nome').val()
+        'nome': $('#input-nome').val(),
+        'nascimento': nascimento.toUTCString(),
+        'dataHoraCadastro': new Date().toUTCString()
     };
-
-    alert(JSON.stringify(formData));
 
     $.ajax({
         headers: {

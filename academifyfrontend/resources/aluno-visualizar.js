@@ -19,6 +19,8 @@ $(document).ready(function () {
         success: function (data) {
             $("#input-matricula").val(data.matricula);
             $("#input-nome").val(data.nome);
+            $("#input-nascimento").val(formatDate(new Date(data.nascimento)));
+            $("#input-dataHoraCadastro").val(formatDateTime(new Date(data.dataHoraCadastro)));
         }
     })
 
@@ -29,7 +31,9 @@ $('#form-editar-usuario').submit(function (event) {
 
     var formData = {
         'id': id_aluno,
-        'nome': $('#input-nome').val()
+        'nome': $('#input-nome').val(),
+        'nascimento': $('#input-nascimento').val(),
+        'dataHoraCadastro': new Date()
     };
 
     $.ajax({

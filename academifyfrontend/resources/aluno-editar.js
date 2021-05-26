@@ -6,6 +6,7 @@ $(document).ready(function () {
         location.href = "/academifyfrontend/login.html";
     }
 
+
     $.ajax({
         headers: {
             'Content-Type': 'application/json',
@@ -17,6 +18,8 @@ $(document).ready(function () {
         success: function (data) {
             $("#input-nome").val(data.nome);
             $("#input-matricula").val(data.matricula);
+            $("#input-nascimento").val(formatDate(new Date(data.nascimento)));
+            $("#input-dataHoraCadastro").val(formatDateTime(new Date(data.dataHoraCadastro)));
         }
     })
 
@@ -25,10 +28,15 @@ $(document).ready(function () {
 $('#form-editar-usuario').submit(function (event) {
     event.preventDefault();
 
+    nascimento = new Date($('#input-nascimento').val());
+    dataHoraCadastro = new Date($('#input-dataHoraCadastro').val());
+
     var formData = {
         'id': id_aluno,
         'matricula': $('#input-matricula').val(),
-        'nome': $('#input-nome').val()
+        'nome': $('#input-nome').val(),
+        'nascimento': nascimento.toUTCString(),
+        'dataHoraCadastro': dataHoraCadastro.toUTCString()
     };
 
     $.ajax({
